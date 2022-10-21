@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tool_chest/model/TransactionItem.dart';
 import 'package:uuid/uuid.dart';
 // import 'package:http/http.dart' as http;
 
@@ -9,15 +10,24 @@ class TransactionProviderItem {
   final String id;
   final String name;
   final double amount;
+  final TransactionType transactionType;
 
-  TransactionProviderItem({required this.id, required this.name, required this.amount});
+  TransactionProviderItem({required this.id, required this.name, required this.amount, required this.transactionType});
 }
 
 class Transaction with ChangeNotifier {
   List<String> supportedBanks = ["RBC", "TD", "CIBC", "Wealthsimple", "Chase"];
   List<TransactionProviderItem> _transactions = [];
-  var _totalAmount = 0.0;
+  var _luxuryAmountSpent = 0.0;
   var _luxuryAmountRemaining = 450.0;
+
+  var _eatingOutAmountSpent = 0.0;
+  var _eatingOutAmountRemaining = 150.0;
+
+  var _groceriesAmountSpent = 0.0;
+  var _groceriesAmountRemaining = 700.0;
+
+  var _gasAmountSpent = 0.0;
 
   List<TransactionProviderItem> get transactions {
     return [..._transactions];
@@ -53,16 +63,33 @@ class Transaction with ChangeNotifier {
   //   }
   // }
 
-  Future<void> addTransaction(final String name, final double amount) async {
+  Future<void> addTransaction(final String name, final double amount, final TransactionType transactionType) async {
     // try {
       const url = "http://192.168.86.48:5000/transaction";
       final uuid = Uuid().v4();
       final newTransaction = TransactionProviderItem(
           id: uuid,
           name: name,
-          amount: amount);
-      _totalAmount += amount;
-      _luxuryAmountRemaining -= amount;
+          amount: amount,
+          transactionType: transactionType);
+
+      switch(transactionType) {
+        case TransactionType.luxury:
+          _luxuryAmountSpent += amount;
+          _luxuryAmountRemaining -= amount;
+          break;
+        case TransactionType.eatingOut:
+          _eatingOutAmountSpent += amount;
+          _eatingOutAmountRemaining -= amount;
+          break;
+        case TransactionType.groceries:
+          _groceriesAmountSpent += amount;
+          _groceriesAmountRemaining += amount;
+          break;
+        case TransactionType.gas:
+          _gasAmountSpent += amount;
+          break;
+      }
       // await http.post(url, headers: {
       //   'Content-type': 'application/json',
       //   'Accept': 'application/json',
@@ -80,12 +107,32 @@ class Transaction with ChangeNotifier {
     // }
   }
 
-  double get totalAmount {
-    return _totalAmount;
-  }
-
   double get luxuryAmountRemaining {
     return _luxuryAmountRemaining;
+  }
+
+  double get luxuryAmountSpent {
+    return _luxuryAmountSpent;
+  }
+
+  double get groceriesAmountSpent {
+    return _groceriesAmountSpent;
+  }
+
+  double get groceriesAmountRemaining {
+    return _groceriesAmountRemaining;
+  }
+
+  double get eatingOutAmountSpent {
+    return _eatingOutAmountSpent;
+  }
+
+  double get eatingAmountRemaining {
+    return _eatingOutAmountRemaining;
+  }
+
+  double get gasAmountSpent {
+    return _gasAmountSpent;
   }
 
   // Future<void> deleteTransaction(transactionId) async {

@@ -29,11 +29,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       // resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: const Text("Expense Tracker"),
+        title: const Text("Tool Chest - Expense tracker"),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Luxury"),
+          Container(
+            padding: EdgeInsets.all(7),
+            child: Text(
+                "Luxury",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
+          ),
           Card(
             margin: EdgeInsets.all(15),
             child: Padding(
@@ -41,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children:  [
-                  Text('Total amount spent: \$${transactions.totalAmount}')
+                  Text('Total amount spent: \$${transactions.luxuryAmountSpent}')
                 ],
               ),
             ),
@@ -54,6 +60,84 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Total amount remaining:\$${transactions.luxuryAmountRemaining}')
+                ],
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(7),
+            child: Text(
+                "Eating out",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
+          ),
+          Card(
+            margin: EdgeInsets.all(15),
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children:  [
+                  Text('Total amount spent: \$${transactions.eatingOutAmountSpent}')
+                ],
+              ),
+            ),
+          ),
+          Card(
+            margin: EdgeInsets.all(15),
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Total amount remaining:\$${transactions.eatingAmountRemaining}')
+                ],
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(7),
+            child: Text(
+                "Groceries",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
+          ),
+          Card(
+            margin: EdgeInsets.all(15),
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children:  [
+                  Text('Total amount spent: \$${transactions.groceriesAmountSpent}')
+                ],
+              ),
+            ),
+          ),
+          Card(
+            margin: EdgeInsets.all(15),
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Total amount remaining:\$${transactions.groceriesAmountRemaining}')
+                ],
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(7),
+            child: Text(
+                "Gas",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
+          ),
+          Card(
+            margin: EdgeInsets.all(15),
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children:  [
+                  Text('Total amount spent: \$${transactions.gasAmountSpent}')
                 ],
               ),
             ),

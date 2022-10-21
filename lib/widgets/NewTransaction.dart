@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tool_chest/model/TransactionItem.dart';
 
 import '../providers/Transaction.dart';
 
@@ -29,7 +30,8 @@ class _NewTransactionState extends State<NewTransaction> {
       // }
 
       // final List<String> values = _value.split(",");
-      transactions.addTransaction(enteredTitle, enteredAmount);
+      // TODO: Capture transaction type as input
+      transactions.addTransaction(enteredTitle, enteredAmount, TransactionType.luxury);
       Navigator.of(context).pop(); // Closes the add transaction modal
     }
 
