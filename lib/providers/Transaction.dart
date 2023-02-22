@@ -1,10 +1,14 @@
 // import 'package:expense_tracker_app/models/transaction_source.dart';
+
+import 'dart:convert';
+// import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tool_chest/model/TransactionItem.dart';
 import 'package:uuid/uuid.dart';
-// import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 
 class TransactionProviderItem {
   final String id;
@@ -29,39 +33,41 @@ class Transaction with ChangeNotifier {
 
   var _gasAmountSpent = 0.0;
 
-  List<TransactionProviderItem> get transactions {
-    return [..._transactions];
-  }
-
-  // Future<void> getTransactions() async {
-  //   try {
-  //     _totalAmount = 0;
-  //     const url = "http://192.168.86.48:5000/transactions";
-  //     final response = await http.get(url);
-  //     final extractedData = json.decode(response.body) as Map<String, dynamic>;
-  //     final List<TransactionProviderItem> transactions = [];
-  //     extractedData.forEach((key, data) {
-  //       List<dynamic> transactionsList = List<dynamic>.from(data);
-  //       transactionsList.forEach((element) {
-  //         transactions.add(TransactionProviderItem(
-  //             id: element[0],
-  //             title: element[1],
-  //             amount: element[3],
-  //             transactionSource: TransactionSource(element[2], element[5],
-  //                 FinancialSourceType.values
-  //                     .firstWhere((e) => e.toString() == "FinancialSourceType" + "." + element[7])),
-  //             date: DateTime.parse(element[4])
-  //         ));
-  //         _totalAmount = _totalAmount + element[3];
-  //       });
-  //       notifyListeners();
-  //     });
-  //     _transactions = transactions;
-  //   } catch (error) {
-  //     print(error);
-  //     throw (error);
-  //   }
+  // List<TransactionProviderItem> get transactions {
+  //   return [..._transactions];
   // }
+
+  Future<void> get transactions async {
+    try {
+      // _totalAmount = 0;
+      var url = Uri.parse("http://10.0.0.122:3008/transactions");
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body) as List<dynamic>;
+      final List<TransactionProviderItem> transactions = [];
+      extractedData.forEach((data) {
+        Map<String, dynamic> transactionsList = Map<String, dynamic>.from(data);
+        transactions.add(TransactionProviderItem(id: transactionsList["id"].toString(),
+            name: transactionsList["name"],
+            amount: transactionsList["amount"],
+            transactionType: TransactionType.values.byName(transactionsList["transaction_type"])));
+        // transactionsList.forEach((key, element) {
+        //   print(key);
+        //   print(element);
+        //   transactions.add(TransactionProviderItem(
+        //       id: data[2],
+        //       name: element[3],
+        //       amount: element[0],
+        //       transactionType: element[4],
+        //       ));
+        // });
+      });
+      _transactions = transactions;
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw (error);
+    }
+  }
 
   Future<void> addTransaction(final String name, final double amount, final TransactionType transactionType) async {
     // try {
@@ -108,31 +114,73 @@ class Transaction with ChangeNotifier {
   }
 
   double get luxuryAmountRemaining {
-    return _luxuryAmountRemaining;
+    var amountRemaining = 0.0;
+    if (_transactions.isNotEmpty) {
+      amountRemaining = _luxuryAmountRemaining - _transactions.where((transaction) => transaction.transactionType ==
+          TransactionType.luxury).map((e) =>
+      e.amount).fold<double>(0, (previous, current) => previous + current);
+    }
+    return amountRemaining;
   }
 
   double get luxuryAmountSpent {
-    return _luxuryAmountSpent;
+    var amountSpent = 0.0;
+    if (_transactions.isNotEmpty) {
+      amountSpent = _transactions.where((transaction) => transaction.transactionType ==
+          TransactionType.luxury).map((e) =>
+      e.amount).fold<double>(0, (previous, current) => previous + current);
+    }
+    return amountSpent;
   }
 
   double get groceriesAmountSpent {
-    return _groceriesAmountSpent;
+    var amountSpent = 0.0;
+    if (_transactions.isNotEmpty) {
+      amountSpent = _transactions.where((transaction) => transaction.transactionType ==
+          TransactionType.groceries).map((e) =>
+      e.amount).fold<double>(0, (previous, current) => previous + current);
+    }
+    return amountSpent;
   }
 
   double get groceriesAmountRemaining {
-    return _groceriesAmountRemaining;
+    var amountRemaining = 0.0;
+    if (_transactions.isNotEmpty) {
+      amountRemaining = _groceriesAmountRemaining - _transactions.where((transaction) => transaction.transactionType ==
+          TransactionType.groceries).map((e) =>
+      e.amount).fold<double>(0, (previous, current) => previous + current);
+    }
+    return amountRemaining;
   }
 
   double get eatingOutAmountSpent {
-    return _eatingOutAmountSpent;
+    var amountSpent = 0.0;
+    if (_transactions.isNotEmpty) {
+      amountSpent = _transactions.where((transaction) => transaction.transactionType ==
+          TransactionType.eatingOut).map((e) =>
+      e.amount).fold<double>(0, (previous, current) => previous + current);
+    }
+    return amountSpent;
   }
 
   double get eatingAmountRemaining {
-    return _eatingOutAmountRemaining;
+    var amountRemaining = 0.0;
+    if (_transactions.isNotEmpty) {
+      amountRemaining = _eatingOutAmountRemaining - _transactions.where((transaction) => transaction.transactionType ==
+          TransactionType.groceries).map((e) =>
+      e.amount).fold<double>(0, (previous, current) => previous + current);
+    }
+    return amountRemaining;
   }
 
   double get gasAmountSpent {
-    return _gasAmountSpent;
+    var amountSpent = 0.0;
+    if (_transactions.isNotEmpty) {
+      amountSpent = _transactions.where((transaction) => transaction.transactionType ==
+          TransactionType.gas).map((e) =>
+      e.amount).fold<double>(0, (previous, current) => previous + current);
+    }
+    return amountSpent;
   }
 
   // Future<void> deleteTransaction(transactionId) async {

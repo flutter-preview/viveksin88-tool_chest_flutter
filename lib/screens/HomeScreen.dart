@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final transactions = Provider.of<Transaction>(context);
+    transactions.transactions;
     return Scaffold(
       // resizeToAvoidBottomInset: true,
       appBar: AppBar(
