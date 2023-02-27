@@ -50,16 +50,6 @@ class Transaction with ChangeNotifier {
             name: transactionsList["name"],
             amount: transactionsList["amount"],
             transactionType: TransactionType.values.byName(transactionsList["transaction_type"])));
-        // transactionsList.forEach((key, element) {
-        //   print(key);
-        //   print(element);
-        //   transactions.add(TransactionProviderItem(
-        //       id: data[2],
-        //       name: element[3],
-        //       amount: element[0],
-        //       transactionType: element[4],
-        //       ));
-        // });
       });
       _transactions = transactions;
       notifyListeners();
@@ -70,8 +60,8 @@ class Transaction with ChangeNotifier {
   }
 
   Future<void> addTransaction(final String name, final double amount, final TransactionType transactionType) async {
-    // try {
-      const url = "http://192.168.86.48:5000/transaction";
+    try {
+      var url = Uri.parse("http://10.0.0.122:3008/transactions");
       final uuid = Uuid().v4();
       final newTransaction = TransactionProviderItem(
           id: uuid,
@@ -79,38 +69,20 @@ class Transaction with ChangeNotifier {
           amount: amount,
           transactionType: transactionType);
 
-      switch(transactionType) {
-        case TransactionType.luxury:
-          _luxuryAmountSpent += amount;
-          _luxuryAmountRemaining -= amount;
-          break;
-        case TransactionType.eatingOut:
-          _eatingOutAmountSpent += amount;
-          _eatingOutAmountRemaining -= amount;
-          break;
-        case TransactionType.groceries:
-          _groceriesAmountSpent += amount;
-          _groceriesAmountRemaining += amount;
-          break;
-        case TransactionType.gas:
-          _gasAmountSpent += amount;
-          break;
-      }
-      // await http.post(url, headers: {
-      //   'Content-type': 'application/json',
-      //   'Accept': 'application/json',
-      // }, body: json.encode({
-      //   "uuid": newTransaction.id,
-      //   "title": newTransaction.title,
-      //   "amount": newTransaction.amount,
-      //   "source_uuid": newTransaction.transactionSource.id
-      // }));
-      _transactions.add(newTransaction);
+      await http.post(url, headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      }, body: json.encode({
+        "uuid": newTransaction.id,
+        "name": newTransaction.name,
+        "amount": newTransaction.amount,
+        "transactionType": newTransaction.transactionType.name
+      }));
       notifyListeners();
-    // } catch (error) {
-    //   print(error);
-    //   throw (error);
-    // }
+    } catch (error) {
+      print(error);
+      throw (error);
+    }
   }
 
   double get luxuryAmountRemaining {

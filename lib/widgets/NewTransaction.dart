@@ -12,6 +12,7 @@ class NewTransaction extends StatefulWidget {
 class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
+  TransactionType transactionType = TransactionType.luxury;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,8 @@ class _NewTransactionState extends State<NewTransaction> {
 
       // final List<String> values = _value.split(",");
       // TODO: Capture transaction type as input
-      transactions.addTransaction(enteredTitle, enteredAmount, TransactionType.luxury);
+      print("Transaction type" + transactionType.name);
+      transactions.addTransaction(enteredTitle, enteredAmount, transactionType);
       Navigator.of(context).pop(); // Closes the add transaction modal
     }
 
@@ -57,6 +59,21 @@ class _NewTransactionState extends State<NewTransaction> {
                 controller: _amountController,
                 keyboardType: TextInputType.number,
                 onSubmitted: (_) => _submitData(),
+              ),
+              DropdownButton(
+                value: transactionType,
+                onChanged: (TransactionType? value) {
+                  // This is called when the user selects an item.
+                  setState(() {
+                    transactionType = value!;
+                  });
+                },
+                items: TransactionType.values.map<DropdownMenuItem<TransactionType>>((TransactionType value) {
+                  return DropdownMenuItem<TransactionType>(
+                    value: value,
+                    child: Text(value.name),
+                  );
+                }).toList(),
               ),
               RaisedButton(
                 // padding: MediaQuery.of(context).viewInsets,
