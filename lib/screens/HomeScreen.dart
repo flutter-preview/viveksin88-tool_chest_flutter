@@ -34,120 +34,142 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Tool Chest - Expense tracker"),
       ),
       drawer: const MainDrawer(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.all(7),
-            child: Text(
-                "Luxury",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
-          ),
-          Card(
-            margin: EdgeInsets.all(15),
-            child: Padding(
-              padding: EdgeInsets.all(8),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: EdgeInsets.all(7),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:  [
-                  Text('Total amount spent: \$${transactions.luxuryAmountSpent}')
-                ],
-              ),
-            ),
-          ),
-          Card(
-            margin: EdgeInsets.all(15),
-            child: Padding(
-              padding: EdgeInsets.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total amount remaining:\$${transactions.luxuryAmountRemaining}')
+                  Text(
+                      "Luxury",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
+                  IconButton(icon: Icon(Icons.refresh), onPressed: () {  },)
                 ],
               ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(7),
-            child: Text(
-                "Eating out",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
-          ),
-          Card(
-            margin: EdgeInsets.all(15),
-            child: Padding(
-              padding: EdgeInsets.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:  [
-                  Text('Total amount spent: \$${transactions.eatingOutAmountSpent}')
-                ],
+            Card(
+              margin: EdgeInsets.all(15),
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:  [
+                    Text('Total amount spent: \$${transactions.luxuryAmountSpent}')
+                  ],
+                ),
               ),
             ),
-          ),
-          Card(
-            margin: EdgeInsets.all(15),
-            child: Padding(
-              padding: EdgeInsets.all(8),
+            Card(
+              margin: EdgeInsets.all(15),
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Total amount remaining:\$${transactions.luxuryAmountRemaining}')
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(7),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total amount remaining:\$${transactions.eatingAmountRemaining}')
+                  Text(
+                      "Eating out",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
+                  IconButton(icon: Icon(Icons.refresh), onPressed: () {  },)
                 ],
               ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(7),
-            child: Text(
-                "Groceries",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
-          ),
-          Card(
-            margin: EdgeInsets.all(15),
-            child: Padding(
-              padding: EdgeInsets.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:  [
-                  Text('Total amount spent: \$${transactions.groceriesAmountSpent}')
-                ],
+            Card(
+              margin: EdgeInsets.all(15),
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:  [
+                    Text('Total amount spent: \$${transactions.eatingOutAmountSpent}')
+                  ],
+                ),
               ),
             ),
-          ),
-          Card(
-            margin: EdgeInsets.all(15),
-            child: Padding(
-              padding: EdgeInsets.all(8),
+            Card(
+              margin: EdgeInsets.all(15),
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Total amount remaining:\$${transactions.eatingAmountRemaining}')
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(7),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total amount remaining:\$${transactions.groceriesAmountRemaining}')
+                  Text(
+                      "Groceries",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
+                  IconButton(icon: Icon(Icons.refresh), onPressed: () {  },)
                 ],
               ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(7),
-            child: Text(
-                "Gas",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
-          ),
-          Card(
-            margin: EdgeInsets.all(15),
-            child: Padding(
-              padding: EdgeInsets.all(8),
+            Card(
+              margin: EdgeInsets.all(15),
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:  [
+                    Text('Total amount spent: \$${transactions.groceriesAmountSpent}')
+                  ],
+                ),
+              ),
+            ),
+            Card(
+              margin: EdgeInsets.all(15),
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Total amount remaining:\$${transactions.groceriesAmountRemaining}')
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(7),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:  [
-                  Text('Total amount spent: \$${transactions.gasAmountSpent}')
+                children: [
+                  Text(
+                      "Gas",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
+                  IconButton(icon: Icon(Icons.refresh), onPressed: () {  },)
                 ],
               ),
             ),
-          ),
-        ]
+            Card(
+              margin: EdgeInsets.all(15),
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:  [
+                    Text('Total amount spent: \$${transactions.gasAmountSpent}')
+                  ],
+                ),
+              ),
+            ),
+          ]
+        ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _startAddNewTransaction(context),
