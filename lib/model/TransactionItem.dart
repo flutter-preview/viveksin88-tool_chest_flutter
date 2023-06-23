@@ -1,6 +1,6 @@
 enum TransactionType {
   luxury,
-  eatingOut,
+  eating_out,
   groceries,
   gas
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tool_chest/widgets/MainDrawer.dart';
 
 import '../providers/Transaction.dart';
 import '../widgets/NewTransaction.dart';
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("Tool Chest - Expense tracker"),
       ),
+      drawer: const MainDrawer(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

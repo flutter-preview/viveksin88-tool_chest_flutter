@@ -20,6 +20,7 @@ class TransactionProviderItem {
 }
 
 class Transaction with ChangeNotifier {
+  var serverUrl = "https://toolchest-viveksin.us2.pitunnel.com";
   List<String> supportedBanks = ["RBC", "TD", "CIBC", "Wealthsimple", "Chase"];
   List<TransactionProviderItem> _transactions = [];
   var _luxuryAmountSpent = 0.0;
@@ -40,7 +41,7 @@ class Transaction with ChangeNotifier {
   Future<void> get transactions async {
     try {
       // _totalAmount = 0;
-      var url = Uri.parse("http://10.0.0.122:3008/transactions");
+      var url = Uri.parse("$serverUrl/transactions");
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as List<dynamic>;
       final List<TransactionProviderItem> transactions = [];
@@ -61,7 +62,7 @@ class Transaction with ChangeNotifier {
 
   Future<void> addTransaction(final String name, final double amount, final TransactionType transactionType) async {
     try {
-      var url = Uri.parse("http://10.0.0.122:3008/transactions");
+      var url = Uri.parse("$serverUrl/transactions");
       final uuid = Uuid().v4();
       final newTransaction = TransactionProviderItem(
           id: uuid,
@@ -129,7 +130,7 @@ class Transaction with ChangeNotifier {
     var amountSpent = 0.0;
     if (_transactions.isNotEmpty) {
       amountSpent = _transactions.where((transaction) => transaction.transactionType ==
-          TransactionType.eatingOut).map((e) =>
+          TransactionType.eating_out).map((e) =>
       e.amount).fold<double>(0, (previous, current) => previous + current);
     }
     return amountSpent;
