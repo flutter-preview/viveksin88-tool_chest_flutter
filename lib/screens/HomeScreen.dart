@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tool_chest/model/TransactionItem.dart';
 import 'package:tool_chest/widgets/MainDrawer.dart';
 
 import '../providers/Transaction.dart';
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                       "Luxury",
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
-                  IconButton(icon: Icon(Icons.refresh), onPressed: () {  },)
+                  IconButton(icon: Icon(Icons.refresh), onPressed: () => transactions.resetTransactions(TransactionType.luxury),)
                 ],
               ),
             ),
@@ -80,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                       "Eating out",
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
-                  IconButton(icon: Icon(Icons.refresh), onPressed: () {  },)
+                  IconButton(icon: Icon(Icons.refresh), onPressed: () => transactions.resetTransactions(TransactionType.eating_out),)
                 ],
               ),
             ),
@@ -115,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                       "Groceries",
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
-                  IconButton(icon: Icon(Icons.refresh), onPressed: () {  },)
+                  IconButton(icon: Icon(Icons.refresh), onPressed: () => transactions.resetTransactions(TransactionType.groceries),)
                 ],
               ),
             ),
@@ -150,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                       "Gas",
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.end),
-                  IconButton(icon: Icon(Icons.refresh), onPressed: () {  },)
+                  IconButton(icon: Icon(Icons.refresh), onPressed: () => transactions.resetTransactions(TransactionType.gas),)
                 ],
               ),
             ),

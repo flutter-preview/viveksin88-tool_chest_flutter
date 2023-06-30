@@ -86,6 +86,20 @@ class Transaction with ChangeNotifier {
     }
   }
 
+  Future<void> resetTransactions(final TransactionType transactionType) async {
+    try {
+      var type = transactionType.name;
+      var url = Uri.parse("$serverUrl/reset/$type");
+      await http.post(url, headers: {
+        'Content-type': 'application/json',
+      }, body: json.encode({}));
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw (error);
+    }
+  }
+
   double get luxuryAmountRemaining {
     var amountRemaining = 0.0;
     if (_transactions.isNotEmpty) {
