@@ -34,6 +34,10 @@ class Transaction with ChangeNotifier {
 
   var _gasAmountSpent = 0.0;
 
+  get transactionsList {
+    return [..._transactions];
+  }
+
   // List<TransactionProviderItem> get transactions {
   //   return [..._transactions];
   // }
