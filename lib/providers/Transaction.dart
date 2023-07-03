@@ -20,7 +20,7 @@ class TransactionProviderItem {
 }
 
 class Transaction with ChangeNotifier {
-  var serverUrl = "https://toolchest-viveksin.us2.pitunnel.com";
+  var serverUrl = "http://10.0.0.122:3008";
   List<String> supportedBanks = ["RBC", "TD", "CIBC", "Wealthsimple", "Chase"];
   List<TransactionProviderItem> _transactions = [];
   var _luxuryAmountSpent = 0.0;

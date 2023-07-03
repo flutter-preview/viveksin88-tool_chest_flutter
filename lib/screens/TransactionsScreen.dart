@@ -14,20 +14,24 @@ class TransactionsScreen extends StatefulWidget {
 class _TransactionsScreenState extends State<TransactionsScreen> {
 
   @override
-  Scaffold build(BuildContext context) {
-    final Transaction transactionsProvider = Provider.of<Transaction>(context);
-    transactionsProvider.transactions;
-    var transactionsList = transactionsProvider.transactionsList;
-    print(transactionsList);
+  Consumer<Transaction> build(BuildContext context) {
+    // final Transaction transactionsProvider = Provider.of<Transaction>(context);
+    // transactionsProvider.transactions;
+    // var transactionsList = transactionsProvider.transactionsList;
+    // print(transactionsList);
 
-    return Scaffold(
-      appBar: AppBar(title: Text("Transactions"),),
-      body: ListView.builder(
-          padding: const EdgeInsets.all(16),
-          itemCount: transactionsList.length,
-          itemBuilder: (BuildContext context, int item) {
-            return ListTile(title: Text(transactionsList[item].name));
-          }),
+    return Consumer<Transaction>(
+      builder: (context, transaction, _) {
+        return Scaffold(
+          appBar: AppBar(title: Text("Transactions"),),
+          body: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: transaction.transactionsList.length,
+              itemBuilder: (BuildContext context, int item) {
+                return ListTile(title: Text("${transaction.transactionsList[item].name}"));
+              }),
+        );
+      }
     );
   }
 }
